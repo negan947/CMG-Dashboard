@@ -72,6 +72,20 @@ const Dashboard = () => {
     { week: "Week 4", "KLINT.RO": 95, Rustfuria: 82, Nike: 62 }
   ];
 
+  // Added updated trend data with additional points
+  const trendData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    datasets: [
+      {
+        label: 'Client Trends',
+        data: [12, 19, 3, 5, 2, 3, 10, 15, 7, 9],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div className={`min-h-screen relative ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
       {/* Background Orbs */}
@@ -132,6 +146,7 @@ const Dashboard = () => {
           <Card 
             className={`relative ${styles.glassCard}`}
             onMouseMove={handleMouseMove}
+            style={{ minHeight: '400px' }}
           >
             <div className="relative z-10">
               <Title>Client Category</Title>
@@ -144,6 +159,10 @@ const Dashboard = () => {
                 colors={["blue", "emerald", "violet", "amber"]}
                 showAnimation={true}
               />
+              {/* Additional info under piechart */}
+              <div className="p-2 bg-white/[0.05] rounded mt-2">
+                <p className="text-sm">Additional client info: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac eros vel justo sagittis placerat.</p>
+              </div>
             </div>
           </Card>
         </motion.div>
@@ -156,6 +175,7 @@ const Dashboard = () => {
           <Card 
             className={`relative ${styles.glassCard}`}
             onMouseMove={handleMouseMove}
+            style={{ minHeight: '400px' }}
           >
             <div className="relative z-10">
               <div className="flex justify-between items-center mb-6">
@@ -183,6 +203,16 @@ const Dashboard = () => {
             </div>
           </Card>
         </motion.div>
+      </div>
+
+      {/* Updated dropdown styling to match glass design */}
+      <div className="mt-4">
+        <label htmlFor="filter" className="block text-sm mb-1">Filter:</label>
+        <select id="filter" className="glassSelect p-2 rounded">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
     </div>
   );
