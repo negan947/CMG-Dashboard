@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { handleMouseMove } from '../utils/glassEffect';
@@ -14,9 +14,19 @@ import {
   Select,
   SelectItem,
 } from '@tremor/react';
+import { getGradientColor } from '../config/chart';
 
 const Dashboard = () => {
   const { isDarkMode } = useTheme();
+
+  // Added state for period selection
+  const [selectedPeriod, setSelectedPeriod] = useState('this month');
+
+  // New handler for Tremor Select
+  const handlePeriodChange = (value) => {
+    setSelectedPeriod(value);
+    // Optionally trigger filtering...
+  };
 
   // Metrics data with exact numbers from requirements
   const metrics = [
@@ -45,16 +55,6 @@ const Dashboard = () => {
       color: "amber"
     }
   ];
-
-  const getGradientColor = (color) => {
-    const gradients = {
-      blue: "from-blue-400 to-blue-600",
-      emerald: "from-emerald-400 to-emerald-600",
-      violet: "from-violet-400 to-violet-600",
-      amber: "from-amber-400 to-amber-600"
-    };
-    return gradients[color] || "from-blue-400 to-blue-600";
-  };
 
   // Client categories data
   const clientCategories = [
@@ -183,21 +183,25 @@ const Dashboard = () => {
                 <div className="flex space-x-4">
                   <Select 
                     defaultValue="this-month" 
-                    className={`w-40 ${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300`}
+                    className={`w-40 ${styles.glassSelect}`}
+                    enableClear={false}
+                    portalClassName="!bg-transparent backdrop-blur-md bg-[rgba(26,26,26,0.8)] !border-white/10"
                   >
-                    <SelectItem value="this-month" className="!bg-transparent hover:!bg-white/[0.12]">This Month</SelectItem>
-                    <SelectItem value="last-month" className="!bg-transparent hover:!bg-white/[0.12]">Last Month</SelectItem>
-                    <SelectItem value="3-months" className="!bg-transparent hover:!bg-white/[0.12]">Last 3 Months</SelectItem>
-                    <SelectItem value="6-months" className="!bg-transparent hover:!bg-white/[0.12]">Last 6 Months</SelectItem>
+                    <SelectItem value="this-month" className="!bg-transparent hover:!bg-white/[0.08]">This Month</SelectItem>
+                    <SelectItem value="last-month" className="!bg-transparent hover:!bg-white/[0.08]">Last Month</SelectItem>
+                    <SelectItem value="3-months" className="!bg-transparent hover:!bg-white/[0.08]">Last 3 Months</SelectItem>
+                    <SelectItem value="6-months" className="!bg-transparent hover:!bg-white/[0.08]">Last 6 Months</SelectItem>
                   </Select>
                   <Select 
                     defaultValue="name" 
-                    className={`w-32 ${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300`}
+                    className={`w-32 ${styles.glassSelect}`}
+                    enableClear={false}
+                    portalClassName="!bg-transparent backdrop-blur-md bg-[rgba(26,26,26,0.8)] !border-white/10"
                   >
-                    <SelectItem value="name" className="!bg-transparent hover:!bg-white/[0.12]">Sort by</SelectItem>
-                    <SelectItem value="performance" className="!bg-transparent hover:!bg-white/[0.12]">Performance</SelectItem>
-                    <SelectItem value="activity" className="!bg-transparent hover:!bg-white/[0.12]">Activity</SelectItem>
-                    <SelectItem value="progress" className="!bg-transparent hover:!bg-white/[0.12]">Progress</SelectItem>
+                    <SelectItem value="name" className="!bg-transparent hover:!bg-white/[0.08]">Sort by</SelectItem>
+                    <SelectItem value="performance" className="!bg-transparent hover:!bg-white/[0.08]">Performance</SelectItem>
+                    <SelectItem value="activity" className="!bg-transparent hover:!bg-white/[0.08]">Activity</SelectItem>
+                    <SelectItem value="progress" className="!bg-transparent hover:!bg-white/[0.08]">Progress</SelectItem>
                   </Select>
                 </div>
               </div>
@@ -215,16 +219,6 @@ const Dashboard = () => {
             </div>
           </Card>
         </motion.div>
-      </div>
-
-      {/* Updated dropdown styling to match glass design */}
-      <div className="mt-4">
-        <label htmlFor="filter" className="block text-sm mb-1">Filter:</label>
-        <select id="filter" className={`${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300 w-40`}>
-          <option value="all" className="!bg-transparent hover:!bg-white/[0.12]">All</option>
-          <option value="active" className="!bg-transparent hover:!bg-white/[0.12]">Active</option>
-          <option value="inactive" className="!bg-transparent hover:!bg-white/[0.12]">Inactive</option>
-        </select>
       </div>
     </div>
   );

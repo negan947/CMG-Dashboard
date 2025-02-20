@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar';
 import { ThemeProvider } from './context/ThemeContext';
 import { NavigationGuardProvider } from './components/NavigationGuard';
 import gradientStyles from './styles/GradientBackground.module.css';
+import './styles/TremorOverrides.css';
 
 // Import pages
 import Dashboard from './pages/Dashboard';

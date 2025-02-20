@@ -33,6 +33,7 @@ const ClientsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterPriority, setFilterPriority] = useState('all');
+  const [sortOption, setSortOption] = useState('name');
 
   useEffect(() => {
     loadClients();
@@ -48,6 +49,11 @@ const ClientsList = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+    // Optionally: trigger sorting logic here
   };
 
   const filteredClients = clients.filter(client => {
@@ -146,6 +152,19 @@ const ClientsList = () => {
               <SelectItem value="high">High Priority</SelectItem>
               <SelectItem value="medium">Medium Priority</SelectItem>
               <SelectItem value="low">Low Priority</SelectItem>
+            </Select>
+          </div>
+          <div className="w-full md:w-48">
+            <Text>Sort By</Text>
+            <Select
+              className="mt-2"
+              value={sortOption}
+              onChange={handleSortChange}
+              portalClassName="!bg-transparent backdrop-blur-md !z-50"
+            >
+              <SelectItem value="name">Name</SelectItem>
+              <SelectItem value="date">Date</SelectItem>
+              <SelectItem value="status">Status</SelectItem>
             </Select>
           </div>
           <motion.button

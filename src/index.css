@@ -115,3 +115,55 @@ code {
 .float {
   animation: float 6s ease-in-out infinite;
 }
+
+/* Add these styles to target Tremor Select portals globally */
+.tremor-Select-portal {
+  background: transparent !important;
+}
+
+.tremor-Select-portal > div {
+  background: rgba(26, 26, 26, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+}
+
+.tremor-Select-portal [role="option"] {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.tremor-Select-portal [role="option"]:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Reset Tremor Select portal styles */
+#headlessui-portal-root {
+  --tw-bg-opacity: 0 !important;
+}
+
+.tremor-Select-portal,
+[id^="headlessui-portal-root"] {
+  background: transparent !important;
+}
+
+.tremor-Select-portal > div,
+[id^="headlessui-portal-root"] > div {
+  background: rgba(26, 26, 26, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  color: inherit !important;
+}
+
+.tremor-Select-portal [role="option"],
+[id^="headlessui-portal-root"] [role="option"] {
+  background: transparent !important;
+  color: inherit !important;
+  transition: background 0.2s ease !important;
+}
+
+.tremor-Select-portal [role="option"]:hover,
+[id^="headlessui-portal-root"] [role="option"]:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}

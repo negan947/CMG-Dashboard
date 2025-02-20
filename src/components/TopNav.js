@@ -4,7 +4,7 @@ import { useProfile } from '../context/ProfileContext';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { Bars3Icon, BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import styles from '../styles/EnhancedGlass.module.css';
+import styles from '../styles/GlassMorphism.module.css';
 
 const TopNav = ({ onToggleSidebar }) => {
   const { profileImage } = useProfile();
@@ -60,7 +60,7 @@ const TopNav = ({ onToggleSidebar }) => {
             <input
               type="text"
               placeholder="Search here..."
-              className={`${styles.glassInput} pl-10`} // added pl-10 for left padding
+              className={`${styles.glassInput} pl-12`} // increased left padding
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <MagnifyingGlassIcon className="w-5 h-5 text-white/40" />
