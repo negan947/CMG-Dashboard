@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useProfile } from '../context/ProfileContext';
 import { useTheme } from '../context/ThemeContext';
@@ -10,6 +10,15 @@ const TopNav = ({ onToggleSidebar }) => {
   const { profileImage } = useProfile();
   const { isDarkMode, toggleTheme } = useTheme();
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const notifications = [
     { id: 1, status: 'new' },
@@ -27,7 +36,7 @@ const TopNav = ({ onToggleSidebar }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/[0.02] border-b border-white/[0.1]">
+    <header className={`sticky top-0 z-40 w-full backdrop-blur-xl bg-white/[0.02] border-b border-white/[0.1] ${scrolled ? styles.navScrolled : ''}`}>
       <div className="flex items-center justify-between h-16 px-4">
         {/* Mobile Menu Button */}
         <div className="flex-shrink-0 md:hidden">
