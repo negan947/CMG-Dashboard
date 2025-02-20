@@ -181,11 +181,23 @@ const Dashboard = () => {
               <div className="flex justify-between items-center mb-6">
                 <Title>Clients Trends</Title>
                 <div className="flex space-x-4">
-                  <Select defaultValue="this-month" className={`w-40 ${styles.glassSelect}`}>
-                    <SelectItem value="this-month">This Month</SelectItem>
+                  <Select 
+                    defaultValue="this-month" 
+                    className={`w-40 ${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300`}
+                  >
+                    <SelectItem value="this-month" className="!bg-transparent hover:!bg-white/[0.12]">This Month</SelectItem>
+                    <SelectItem value="last-month" className="!bg-transparent hover:!bg-white/[0.12]">Last Month</SelectItem>
+                    <SelectItem value="3-months" className="!bg-transparent hover:!bg-white/[0.12]">Last 3 Months</SelectItem>
+                    <SelectItem value="6-months" className="!bg-transparent hover:!bg-white/[0.12]">Last 6 Months</SelectItem>
                   </Select>
-                  <Select defaultValue="name" className={`w-32 ${styles.glassSelect}`}>
-                    <SelectItem value="name">Sort by</SelectItem>
+                  <Select 
+                    defaultValue="name" 
+                    className={`w-32 ${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300`}
+                  >
+                    <SelectItem value="name" className="!bg-transparent hover:!bg-white/[0.12]">Sort by</SelectItem>
+                    <SelectItem value="performance" className="!bg-transparent hover:!bg-white/[0.12]">Performance</SelectItem>
+                    <SelectItem value="activity" className="!bg-transparent hover:!bg-white/[0.12]">Activity</SelectItem>
+                    <SelectItem value="progress" className="!bg-transparent hover:!bg-white/[0.12]">Progress</SelectItem>
                   </Select>
                 </div>
               </div>
@@ -208,10 +220,10 @@ const Dashboard = () => {
       {/* Updated dropdown styling to match glass design */}
       <div className="mt-4">
         <label htmlFor="filter" className="block text-sm mb-1">Filter:</label>
-        <select id="filter" className="glassSelect p-2 rounded">
-          <option value="all">All</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
+        <select id="filter" className={`${styles.glassCard} !bg-white/[0.08] backdrop-blur-[8px] !p-2 !rounded-lg hover:!bg-white/[0.12] transition-all duration-300 w-40`}>
+          <option value="all" className="!bg-transparent hover:!bg-white/[0.12]">All</option>
+          <option value="active" className="!bg-transparent hover:!bg-white/[0.12]">Active</option>
+          <option value="inactive" className="!bg-transparent hover:!bg-white/[0.12]">Inactive</option>
         </select>
       </div>
     </div>
