@@ -44,10 +44,10 @@ export const chartConfig = {
 
 export const getGradientColor = (color) => {
   const gradients = {
-    blue: "from-blue-400\\/80 to-blue-600\\/80",
-    emerald: "from-emerald-400\\/80 to-emerald-600\\/80",
-    violet: "from-violet-400\\/80 to-violet-600\\/80",
-    amber: "from-amber-400\\/80 to-amber-600\\/80",
+    blue: "from-blue-400/80 to-blue-600/80",
+    emerald: "from-emerald-400/80 to-emerald-600/80",
+    violet: "from-violet-400/80 to-violet-600/80",
+    amber: "from-amber-400/80 to-amber-600/80",
   };
-  return gradients[color] || "from-blue-400\\/80 to-blue-600\\/80";
+  return gradients[color] || "from-blue-400/80 to-blue-600/80";
 };
