@@ -49,6 +49,22 @@
   .content-height {
     height: calc(100vh - 4rem - 2rem); /* Accounts for navbar and padding */
   }
+
+  .backdrop-saturate-150 {
+    backdrop-filter: saturate(150%) blur(8px);
+  }
+  
+  .backdrop-saturate-200 {
+    backdrop-filter: saturate(200%) blur(12px);
+  }
+
+  .bg-blur-nav {
+    @apply bg-opacity-70 backdrop-blur-md backdrop-saturate-150;
+  }
+
+  .bg-blur-nav-scrolled {
+    @apply bg-opacity-80 backdrop-blur-lg backdrop-saturate-200;
+  }
 }
 
 /* Ensure proper scrolling for main content */

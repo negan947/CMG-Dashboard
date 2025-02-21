@@ -14,6 +14,8 @@ import {
   ChevronDownIcon,
   ChevronUpIcon
 } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
+import styles from '../styles/GlassMorphism.module.css';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { isDarkMode } = useTheme();
@@ -101,8 +103,11 @@ const Sidebar = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Backdrop */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className={`fixed inset-0 ${styles.glassBackdrop} z-40 lg:hidden`}
           onClick={onClose}
         />
       )}
@@ -111,7 +116,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         className={`fixed lg:sticky top-0 left-0 h-[100dvh] ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 transition-transform duration-300 ease-in-out
-        ${styleClasses.sidebarBg} border-r ${styleClasses.border} 
+        ${styles.glassSidebar}
         flex flex-col w-[280px] z-50
         ${location.pathname.includes('/login') || location.pathname.includes('/signup') ? 'hidden' : ''}`}
       >

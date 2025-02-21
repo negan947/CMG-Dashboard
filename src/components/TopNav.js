@@ -2,22 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useProfile } from '../context/ProfileContext';
 import { useTheme } from '../context/ThemeContext';
-import { motion } from 'framer-motion';
-import { Bars3Icon, BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Bars3Icon, BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import styles from '../styles/GlassMorphism.module.css';
 
 const TopNav = ({ onToggleSidebar }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileSearchExpanded, setMobileSearchExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      const isScrolled = window.scrollY > 0;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [scrolled]);
 
   const notifications = [
     { id: 1, status: 'new' },
@@ -35,10 +40,14 @@ const TopNav = ({ onToggleSidebar }) => {
   }
 
   return (
-    <header className={`sticky top-0 z-40 w-full backdrop-blur-xl bg-white/[0.02] border-b border-white/[0.1] ${scrolled ? styles.navScrolled : ''}`}>
-      <div className="flex items-center justify-between h-16 px-4 max-w-[2000px] mx-auto">
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`sticky top-0 z-40 w-full ${styles.glassNavbar} ${scrolled ? styles.glassNavbarScrolled : ''}`}
+    >
+      <div className={`${styles.navbarContent} ${scrolled ? styles.navbarContentScrolled : ''} flex items-center justify-between px-4 h-16 max-w-[2000px] mx-auto`}>
         {/* Mobile Menu Button */}
-        <div className="flex-shrink-0 lg:hidden">
+        <div className="flex items-center space-x-3 lg:hidden">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -51,10 +60,28 @@ const TopNav = ({ onToggleSidebar }) => {
           >
             <Bars3Icon className="w-6 h-6" />
           </motion.button>
+
+          {/* Mobile Search Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setMobileSearchExpanded(!mobileSearchExpanded)}
+            className={`md:hidden p-2 rounded-xl ${
+              isDarkMode 
+                ? 'hover:bg-gray-800 text-gray-400' 
+                : 'hover:bg-gray-100 text-gray-600'
+            } transition-colors duration-200`}
+          >
+            <MagnifyingGlassIcon className="w-6 h-6" />
+          </motion.button>
         </div>
 
         {/* Search Bar - Hide on mobile */}
-        <div className="hidden md:flex flex-1 max-w-xl">
+        <motion.div
+          initial={false}
+          animate={{ opacity: scrolled ? 0.95 : 1 }}
+          className="hidden md:flex flex-1 max-w-xl"
+        >
           <div className="relative w-full">
             <input
               type="text"
@@ -65,10 +92,14 @@ const TopNav = ({ onToggleSidebar }) => {
               <MagnifyingGlassIcon className="w-5 h-5 text-white/40" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Section */}
-        <div className="flex items-center ml-auto space-x-2 md:space-x-4">
+        <motion.div
+          initial={false}
+          animate={{ scale: scrolled ? 0.95 : 1 }}
+          className="flex items-center ml-auto space-x-2 md:space-x-4"
+        >
           {/* Theme Toggle */}
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -127,23 +158,38 @@ const TopNav = ({ onToggleSidebar }) => {
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Mobile Search - Show on small screens */}
-      <div className="md:hidden px-4 pb-3">
-        <div className="relative w-full">
+      {/* Mobile Search - Expandable */}
+      <motion.div
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ 
+          height: mobileSearchExpanded ? 'auto' : 0,
+          opacity: mobileSearchExpanded ? 1 : 0
+        }}
+        transition={{ duration: 0.2 }}
+        className={`md:hidden overflow-hidden ${styles.mobileSearchContainer} ${styles.searchExpandAnimation}`}
+      >
+        <div className="relative w-full px-4 py-2">
           <input
             type="text"
             placeholder="Search here..."
-            className={`${styles.glassInput} pl-12 w-full`}
+            className={`${styles.glassInput} pl-12 pr-10 w-full`}
+            autoFocus={mobileSearchExpanded}
           />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 left-4 pl-3 flex items-center pointer-events-none">
             <MagnifyingGlassIcon className="w-5 h-5 text-white/40" />
           </div>
+          <button
+            onClick={() => setMobileSearchExpanded(false)}
+            className="absolute inset-y-0 right-4 pr-3 flex items-center text-white/40 hover:text-white/60 transition-colors"
+          >
+            <XMarkIcon className="w-5 h-5" />
+          </button>
         </div>
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 };
 
