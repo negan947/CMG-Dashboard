@@ -1,5 +1,5 @@
 import { useContext, createContext, useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NavigationGuardContext = createContext();
@@ -61,7 +61,6 @@ export const NavigationGuardProvider = ({ children }) => {
   const [shouldBlock, setShouldBlock] = useState(false);
   const [pendingPath, setPendingPath] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {

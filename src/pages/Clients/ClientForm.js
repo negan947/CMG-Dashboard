@@ -35,7 +35,7 @@ const ClientForm = () => {
     if (id) {
       loadClient();
     }
-  }, [id]);
+  }, [id, loadClient]);  // Added loadClient to dependency array
 
   const loadClient = async () => {
     try {

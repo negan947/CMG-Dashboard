@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { motion } from 'framer-motion';
 import {
@@ -9,7 +9,6 @@ import {
   Text,
   Flex,
   Grid,
-  Col,
   Metric,
   ProgressBar,
   BadgeDelta,
@@ -24,7 +23,6 @@ import {
 
 const AnalyticsOverview = () => {
   const { isDarkMode } = useTheme();
-  const [selectedKPI, setSelectedKPI] = useState('weekly');
 
   const websiteMetrics = [
     {

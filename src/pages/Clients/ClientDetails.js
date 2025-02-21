@@ -42,7 +42,7 @@ const ClientDetails = () => {
 
   useEffect(() => {
     loadClientData();
-  }, [id]);
+  }, [loadClientData]);
 
   const loadClientData = async () => {
     try {

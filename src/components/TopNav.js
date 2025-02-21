@@ -7,7 +7,6 @@ import { Bars3Icon, BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon } from '@he
 import styles from '../styles/GlassMorphism.module.css';
 
 const TopNav = ({ onToggleSidebar }) => {
-  const { profileImage } = useProfile();
   const { isDarkMode, toggleTheme } = useTheme();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);

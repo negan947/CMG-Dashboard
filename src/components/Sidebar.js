@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useProfile } from '../context/ProfileContext';
 import { useNavigationGuard } from './NavigationGuard';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Disclosure, Transition } from '@headlessui/react';
 import { 
   ChartBarIcon, 
