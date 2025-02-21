@@ -107,7 +107,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={`fixed inset-0 ${styles.glassBackdrop} z-40 lg:hidden`}
+          className={`fixed inset-0 ${styles.sidebarBackdrop} ${isOpen ? styles.open : ''} z-40 lg:hidden`}
           onClick={onClose}
         />
       )}
@@ -116,12 +116,12 @@ const Sidebar = ({ isOpen, onClose }) => {
         className={`fixed lg:sticky top-0 left-0 h-[100dvh] ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 transition-transform duration-300 ease-in-out
-        ${styles.glassSidebar}
-        flex flex-col w-[280px] z-50
+        ${styles.glassSidebar} gpu-accelerated blur-accelerated
+        flex flex-col w-[280px] z-50 overflow-hidden
         ${location.pathname.includes('/login') || location.pathname.includes('/signup') ? 'hidden' : ''}`}
       >
         {/* Logo Section */}
-        <div className="p-4 flex items-center justify-between flex-shrink-0">
+        <div className="p-4 flex items-center justify-between flex-shrink-0 relative z-10">
           <Link to="/" className="flex items-center group relative" onClick={handleNavigation}>
             <div className="flex items-center space-x-3">
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-blue-600 to-teal-500 
@@ -159,7 +159,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
 
         {/* Navigation */}
-        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent px-3 py-4">
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent px-3 py-4 relative z-10">
           <nav className="space-y-1">
             {menuItems.map((item) => (
               item.items ? (
@@ -167,8 +167,8 @@ const Sidebar = ({ isOpen, onClose }) => {
                   {({ open }) => (
                     <>
                       <Disclosure.Button
-                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200
-                          ${styleClasses.text} ${styleClasses.itemBg} group`}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg
+                          ${styles.menuItem} group`}
                       >
                         <div className="flex items-center">
                           <item.icon className={`w-5 h-5 mr-3 ${styleClasses.icon} group-hover:text-blue-500 transition-colors`} />
@@ -194,8 +194,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                               key={subItem.path}
                               to={subItem.path}
                               onClick={handleNavigation}
-                              className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200
-                                ${isLinkActive(subItem.path) ? styleClasses.activeItemBg : styleClasses.itemBg}
+                              className={`flex items-center px-3 py-2 text-sm rounded-lg
+                                ${styles.menuItem}
+                                ${isLinkActive(subItem.path) ? styles.menuItemActive : ''}
                                 ${isLinkActive(subItem.path) ? styleClasses.activeText : styleClasses.text}`}
                             >
                               {subItem.name}
@@ -211,8 +212,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                   key={item.path}
                   to={item.path}
                   onClick={handleNavigation}
-                  className={`flex items-center px-3 py-2.5 rounded-lg transition-all duration-200 group text-sm
-                    ${isLinkActive(item.path) ? styleClasses.activeItemBg : styleClasses.itemBg}
+                  className={`flex items-center px-3 py-2.5 rounded-lg group text-sm
+                    ${styles.menuItem}
+                    ${isLinkActive(item.path) ? styles.menuItemActive : ''}
                     ${isLinkActive(item.path) ? styleClasses.activeText : styleClasses.text}`}
                 >
                   <item.icon 
@@ -228,11 +230,11 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
 
         {/* Profile Section */}
-        <div className={`p-3 border-t ${styleClasses.border} mt-auto flex-shrink-0`}>
+        <div className={`p-3 border-t ${styleClasses.border} mt-auto flex-shrink-0 relative z-10`}>
           <Link
             to="/account"
             onClick={handleNavigation}
-            className={`flex items-center p-2 rounded-lg ${styleClasses.itemBg} transition-all duration-200 group`}
+            className={`flex items-center p-2 rounded-lg ${styles.menuItem} group`}
           >
             <div className="relative w-9 h-9 rounded-full overflow-hidden mr-3 ring-2 ring-blue-500/20 group-hover:ring-blue-500/50 transition-all duration-200">
               {profileImage ? (

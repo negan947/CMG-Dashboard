@@ -65,6 +65,25 @@
   .bg-blur-nav-scrolled {
     @apply bg-opacity-80 backdrop-blur-lg backdrop-saturate-200;
   }
+
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0) perspective(1px);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+  }
+
+  .blur-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: backdrop-filter;
+  }
+
+  .smooth-backdrop {
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
 }
 
 /* Ensure proper scrolling for main content */

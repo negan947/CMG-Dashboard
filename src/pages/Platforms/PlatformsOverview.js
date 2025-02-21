@@ -22,6 +22,7 @@ import {
   Instagram as InstagramIcon,
   Linkedin as LinkedinIcon,
 } from 'lucide-react';
+import styles from '../../styles/GlassMorphism.module.css';
 
 const PlatformsOverview = () => {
   const { isDarkMode } = useTheme();
@@ -83,7 +84,14 @@ const PlatformsOverview = () => {
   ];
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+    <div className={`min-h-screen relative ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+      {/* Background Orbs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className={`${styles.floatingOrb} ${styles.orb1}`} style={{ backgroundColor: 'rgba(59, 130, 246, 0.35)' }}></div>
+        <div className={`${styles.floatingOrb} ${styles.orb2}`} style={{ backgroundColor: 'rgba(236, 72, 153, 0.35)' }}></div>
+        <div className={`${styles.floatingOrb} ${styles.orb3}`} style={{ backgroundColor: 'rgba(168, 85, 247, 0.35)' }}></div>
+      </div>
+
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

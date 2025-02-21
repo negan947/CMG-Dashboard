@@ -80,10 +80,10 @@ const Dashboard = () => {
   return (
     <div className={`min-h-screen relative ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
       {/* Background Orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={styles.orb1}></div>
-        <div className={styles.orb2}></div>
-        <div className={styles.orb3}></div>
+      <div className={styles.orbContainer}>
+        <div className={`${styles.floatingOrb} ${styles.orb1}`}></div>
+        <div className={`${styles.floatingOrb} ${styles.orb2}`}></div>
+        <div className={`${styles.floatingOrb} ${styles.orb3}`}></div>
       </div>
 
       {/* Welcome Section */}
