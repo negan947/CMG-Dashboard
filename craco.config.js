@@ -4,7 +4,7 @@ module.exports = {
       // ...existing webpack config modifications...
       webpackConfig.optimization = {
         ...webpackConfig.optimization,
-        portableRecords: true,
+        portableRecords: true, // Added portableRecords flag to resolve CSS minifier issues
       };
       return webpackConfig;
     }
