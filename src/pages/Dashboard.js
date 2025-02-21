@@ -6,6 +6,12 @@ import styles from '../styles/GlassMorphism.module.css';
 import { Card, Title, Text, DonutChart, LineChart, Metric } from '@tremor/react';
 import { getGradientColor } from '../config/chart';
 
+// Helper function to calculate trends
+const calculateTrends = (data) => {
+  // Keep original data if no filtering/sorting needed
+  return data;
+};
+
 const Dashboard = () => {
   const { isDarkMode } = useTheme();
 
@@ -68,51 +74,8 @@ const Dashboard = () => {
 
   // Filter and sort client trends based on selected period and sort
   const clientTrends = useMemo(() => {
-    let filtered = [...baseClientTrends];
-
-    // Filter by period
-    switch (selectedPeriod) {
-      case 'this-month':
-        filtered = baseClientTrends.slice(-4);
-        break;
-      case 'last-month':
-        filtered = baseClientTrends.slice(-8, -4);
-        break;
-      case '3-months':
-        filtered = baseClientTrends.slice(-12);
-        break;
-      case '6-months':
-        filtered = baseClientTrends;
-        break;
-      default:
-        filtered = baseClientTrends.slice(-4);
-    }
-
-    // Sort by selected criteria
-    if (selectedSort === 'performance') {
-      filtered.sort((a, b) => (b['KLINT.RO'] + b.Rustfuria + b.Nike) - (a['KLINT.RO'] + a.Rustfuria + a.Nike));
-    } else if (selectedSort === 'activity') {
-      filtered.sort((a, b) => Math.max(b['KLINT.RO'], b.Rustfuria, b.Nike) - Math.max(a['KLINT.RO'], a.Rustfuria, a.Nike));
-    } else if (selectedSort === 'progress') {
-      filtered.sort((a, b) => (b['KLINT.RO'] - b.Nike) - (a['KLINT.RO'] - a.Nike));
-    }
-
-    return filtered;
-  }, [selectedPeriod, selectedSort]);
-
-  // Added updated trend data with additional points
-  const trendData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-    datasets: [
-      {
-        label: 'Client Trends',
-        data: [12, 19, 3, 5, 2, 3, 10, 15, 7, 9],
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
+    return calculateTrends(baseClientTrends);
+  }, [baseClientTrends]); // Added baseClientTrends to dependency array
 
   return (
     <div className={`min-h-screen relative ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>

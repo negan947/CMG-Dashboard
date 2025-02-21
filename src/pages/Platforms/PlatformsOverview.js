@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { motion } from 'framer-motion';
 import {
@@ -14,7 +14,6 @@ import {
   TabPanels,
   TabPanel,
   Grid,
-  Col,
   Badge,
 } from '@tremor/react';
 import {
@@ -26,7 +25,6 @@ import {
 
 const PlatformsOverview = () => {
   const { isDarkMode } = useTheme();
-  const [selectedPlatform, setSelectedPlatform] = useState('all');
 
   const platformMetrics = [
     {

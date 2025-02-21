@@ -10,7 +10,6 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  TextInput,
   Select,
   SelectItem,
   Button,
@@ -20,8 +19,6 @@ import {
 import {
   PaintBrushIcon,
   GlobeAltIcon,
-  BellIcon,
-  KeyIcon,
   CloudArrowUpIcon,
   ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
