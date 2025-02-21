@@ -1,13 +1,13 @@
 /* Reset Tremor Select Portal */
-#headlessui-portal-root,
-.tremor-Select-portal,
+.headlessui-portal-root,
+.tremor-select-portal,
 [id^="headlessui-portal-root"] {
   --tw-bg-opacity: 0 !important;
   background: transparent !important;
 }
 
 /* Tremor Select Components */
-.tremor-SelectButton-root {
+.tremor-select-button {
   background: rgba(255, 255, 255, 0.08) !important;
   backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -16,12 +16,12 @@
   transition: all 0.2s ease !important;
 }
 
-.tremor-SelectButton-root:hover {
+.tremor-select-button:hover {
   background: rgba(255, 255, 255, 0.12) !important;
 }
 
 /* Dropdown Panel */
-.tremor-Select-portal > div,
+.tremor-select-dropdown,
 [id^="headlessui-portal-root"] > div,
 div[role="listbox"] {
   background: rgba(26, 26, 26, 0.8) !important;
@@ -35,9 +35,9 @@ div[role="listbox"] {
 }
 
 /* Options */
-.tremor-SelectItem-root,
+.tremor-select-option,
 [role="option"],
-.tremor-Select-portal [role="option"],
+.tremor-select-portal [role="option"],
 [id^="headlessui-portal-root"] [role="option"] {
   background: transparent !important;
   color: inherit !important;
@@ -47,9 +47,9 @@ div[role="listbox"] {
   padding: 0.5rem !important;
 }
 
-.tremor-SelectItem-root:hover,
+.tremor-select-option:hover,
 [role="option"]:hover,
-.tremor-Select-portal [role="option"]:hover,
+.tremor-select-portal [role="option"]:hover,
 [id^="headlessui-portal-root"] [role="option"]:hover {
   background: rgba(255, 255, 255, 0.08) !important;
 }
