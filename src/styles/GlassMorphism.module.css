@@ -1,7 +1,7 @@
 :global(.tremor-Select-portal) {
   position: fixed !important;
   background: transparent !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important; /* Increased z-index to ensure dropdowns appear above all glass cards */
 }
 
 :global(.tremor-Select-portal > div) {

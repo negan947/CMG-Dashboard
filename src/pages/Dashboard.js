@@ -1,31 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { handleMouseMove } from '../utils/glassEffect';
 import styles from '../styles/GlassMorphism.module.css';
-import {
-  Card,
-  Title,
-  Text,
-  DonutChart,
-  LineChart,
-  Grid,
-  Metric,
-  Select,
-  SelectItem,
-} from '@tremor/react';
+import { Card, Title, Text, DonutChart, LineChart, Metric } from '@tremor/react';
 import { getGradientColor } from '../config/chart';
 
 const Dashboard = () => {
   const { isDarkMode } = useTheme();
 
-  // Added state for period selection
-  const [selectedPeriod, setSelectedPeriod] = useState('this month');
+  // Separate states for period and sort
+  const [selectedPeriod, setSelectedPeriod] = useState('this-month');
+  const [selectedSort, setSelectedSort] = useState('performance');
 
-  // New handler for Tremor Select
-  const handlePeriodChange = (value) => {
-    setSelectedPeriod(value);
-    // Optionally trigger filtering...
+  // Handlers for each dropdown
+  const handlePeriodChange = (e) => {
+    setSelectedPeriod(e.target.value);
+  };
+
+  const handleSortChange = (e) => {
+    setSelectedSort(e.target.value);
   };
 
   // Metrics data with exact numbers from requirements
@@ -65,12 +59,46 @@ const Dashboard = () => {
   ];
 
   // Client trends data over 4 weeks
-  const clientTrends = [
+  const baseClientTrends = [
     { week: "Week 1", "KLINT.RO": 85, Rustfuria: 65, Nike: 45 },
     { week: "Week 2", "KLINT.RO": 92, Rustfuria: 72, Nike: 52 },
     { week: "Week 3", "KLINT.RO": 88, Rustfuria: 78, Nike: 58 },
     { week: "Week 4", "KLINT.RO": 95, Rustfuria: 82, Nike: 62 }
   ];
+
+  // Filter and sort client trends based on selected period and sort
+  const clientTrends = useMemo(() => {
+    let filtered = [...baseClientTrends];
+
+    // Filter by period
+    switch (selectedPeriod) {
+      case 'this-month':
+        filtered = baseClientTrends.slice(-4);
+        break;
+      case 'last-month':
+        filtered = baseClientTrends.slice(-8, -4);
+        break;
+      case '3-months':
+        filtered = baseClientTrends.slice(-12);
+        break;
+      case '6-months':
+        filtered = baseClientTrends;
+        break;
+      default:
+        filtered = baseClientTrends.slice(-4);
+    }
+
+    // Sort by selected criteria
+    if (selectedSort === 'performance') {
+      filtered.sort((a, b) => (b['KLINT.RO'] + b.Rustfuria + b.Nike) - (a['KLINT.RO'] + a.Rustfuria + a.Nike));
+    } else if (selectedSort === 'activity') {
+      filtered.sort((a, b) => Math.max(b['KLINT.RO'], b.Rustfuria, b.Nike) - Math.max(a['KLINT.RO'], a.Rustfuria, a.Nike));
+    } else if (selectedSort === 'progress') {
+      filtered.sort((a, b) => (b['KLINT.RO'] - b.Nike) - (a['KLINT.RO'] - a.Nike));
+    }
+
+    return filtered;
+  }, [selectedPeriod, selectedSort]);
 
   // Added updated trend data with additional points
   const trendData = {
@@ -156,7 +184,7 @@ const Dashboard = () => {
                 category="value"
                 index="name"
                 valueFormatter={(number) => `${number}%`}
-                colors={["blue", "emerald", "violet", "amber"]}
+                colors={['blue', 'emerald', 'violet', 'amber']}
                 showAnimation={true}
               />
               {/* Additional info under piechart */}
@@ -173,7 +201,7 @@ const Dashboard = () => {
           transition={{ duration: 0.3, delay: 0.5 }}
         >
           <Card 
-            className={`relative ${styles.glassCard}`}
+            className={`relative ${styles.glassCard} overflow-visible`} 
             onMouseMove={handleMouseMove}
             style={{ minHeight: '400px' }}
           >
@@ -181,36 +209,33 @@ const Dashboard = () => {
               <div className="flex justify-between items-center mb-6">
                 <Title>Clients Trends</Title>
                 <div className="flex space-x-4">
-                  <Select 
-                    defaultValue="this-month" 
-                    className={`w-40 ${styles.glassSelect}`}
-                    enableClear={false}
-                    portalClassName="!bg-transparent backdrop-blur-md bg-[rgba(26,26,26,0.8)] !border-white/10"
+                  <select 
+                    value={selectedPeriod} 
+                    onChange={handlePeriodChange} 
+                    className="w-40 bg-transparent backdrop-blur-md border border-white/10 rounded-lg p-2"
                   >
-                    <SelectItem value="this-month" className="!bg-transparent hover:!bg-white/[0.08]">This Month</SelectItem>
-                    <SelectItem value="last-month" className="!bg-transparent hover:!bg-white/[0.08]">Last Month</SelectItem>
-                    <SelectItem value="3-months" className="!bg-transparent hover:!bg-white/[0.08]">Last 3 Months</SelectItem>
-                    <SelectItem value="6-months" className="!bg-transparent hover:!bg-white/[0.08]">Last 6 Months</SelectItem>
-                  </Select>
-                  <Select 
-                    defaultValue="name" 
-                    className={`w-32 ${styles.glassSelect}`}
-                    enableClear={false}
-                    portalClassName="!bg-transparent backdrop-blur-md bg-[rgba(26,26,26,0.8)] !border-white/10"
+                    <option value="this-month">This Month</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="3-months">Last 3 Months</option>
+                    <option value="6-months">Last 6 Months</option>
+                  </select>
+                  <select 
+                    value={selectedSort} 
+                    onChange={handleSortChange} 
+                    className="w-32 bg-transparent backdrop-blur-md border border-white/10 rounded-lg p-2"
                   >
-                    <SelectItem value="name" className="!bg-transparent hover:!bg-white/[0.08]">Sort by</SelectItem>
-                    <SelectItem value="performance" className="!bg-transparent hover:!bg-white/[0.08]">Performance</SelectItem>
-                    <SelectItem value="activity" className="!bg-transparent hover:!bg-white/[0.08]">Activity</SelectItem>
-                    <SelectItem value="progress" className="!bg-transparent hover:!bg-white/[0.08]">Progress</SelectItem>
-                  </Select>
+                    <option value="performance">Performance</option>
+                    <option value="activity">Activity</option>
+                    <option value="progress">Progress</option>
+                  </select>
                 </div>
               </div>
               <LineChart
                 className="h-80 mt-4"
                 data={clientTrends}
                 index="week"
-                categories={["KLINT.RO", "Rustfuria", "Nike"]}
-                colors={["emerald", "blue", "amber"]}
+                categories={['KLINT.RO', 'Rustfuria', 'Nike']}
+                colors={['emerald', 'blue', 'amber']}
                 showAnimation={true}
                 showLegend={true}
                 showGridLines={false}

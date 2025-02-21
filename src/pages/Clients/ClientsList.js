@@ -14,8 +14,6 @@ import {
   TableBody,
   TableCell,
   TextInput,
-  Select,
-  SelectItem,
 } from '@tremor/react';
 import { 
   MagnifyingGlassIcon, 
@@ -130,42 +128,41 @@ const ClientsList = () => {
           </div>
           <div className="w-full md:w-48">
             <Text>Status</Text>
-            <Select
-              className="mt-2"
+            <select
+              className="mt-2 w-full bg-transparent backdrop-blur-md border border-white/10 rounded-lg p-2"
               value={filterStatus}
-              onValueChange={setFilterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
             >
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="inactive">Inactive</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-            </Select>
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="pending">Pending</option>
+            </select>
           </div>
           <div className="w-full md:w-48">
             <Text>Priority</Text>
-            <Select
-              className="mt-2"
+            <select
+              className="mt-2 w-full bg-transparent backdrop-blur-md border border-white/10 rounded-lg p-2"
               value={filterPriority}
-              onValueChange={setFilterPriority}
+              onChange={(e) => setFilterPriority(e.target.value)}
             >
-              <SelectItem value="all">All Priorities</SelectItem>
-              <SelectItem value="high">High Priority</SelectItem>
-              <SelectItem value="medium">Medium Priority</SelectItem>
-              <SelectItem value="low">Low Priority</SelectItem>
-            </Select>
+              <option value="all">All Priorities</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
           </div>
           <div className="w-full md:w-48">
             <Text>Sort By</Text>
-            <Select
-              className="mt-2"
+            <select
+              className="mt-2 w-full bg-transparent backdrop-blur-md border border-white/10 rounded-lg p-2"
               value={sortOption}
               onChange={handleSortChange}
-              portalClassName="!bg-transparent backdrop-blur-md !z-50"
             >
-              <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="date">Date</SelectItem>
-              <SelectItem value="status">Status</SelectItem>
-            </Select>
+              <option value="name">Name</option>
+              <option value="date">Date</option>
+              <option value="status">Status</option>
+            </select>
           </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
