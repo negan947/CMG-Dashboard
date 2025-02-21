@@ -36,9 +36,9 @@ const TopNav = ({ onToggleSidebar }) => {
 
   return (
     <header className={`sticky top-0 z-40 w-full backdrop-blur-xl bg-white/[0.02] border-b border-white/[0.1] ${scrolled ? styles.navScrolled : ''}`}>
-      <div className="flex items-center justify-between h-16 px-4">
+      <div className="flex items-center justify-between h-16 px-4 max-w-[2000px] mx-auto">
         {/* Mobile Menu Button */}
-        <div className="flex-shrink-0 md:hidden">
+        <div className="flex-shrink-0 lg:hidden">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -53,13 +53,13 @@ const TopNav = ({ onToggleSidebar }) => {
           </motion.button>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex-1 max-w-xl">
-          <div className="relative">
+        {/* Search Bar - Hide on mobile */}
+        <div className="hidden md:flex flex-1 max-w-xl">
+          <div className="relative w-full">
             <input
               type="text"
               placeholder="Search here..."
-              className={`${styles.glassInput} pl-12`} // increased left padding
+              className={`${styles.glassInput} pl-12 w-full`}
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <MagnifyingGlassIcon className="w-5 h-5 text-white/40" />
@@ -68,7 +68,7 @@ const TopNav = ({ onToggleSidebar }) => {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center ml-4 space-x-4">  {/* added space-x-4 for spacing controls */}
+        <div className="flex items-center ml-auto space-x-2 md:space-x-4">
           {/* Theme Toggle */}
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -87,8 +87,8 @@ const TopNav = ({ onToggleSidebar }) => {
             )}
           </motion.button>
 
-          {/* Notifications */}
-          <div className="relative">
+          {/* Notifications - Hide on smallest screens */}
+          <div className="relative hidden sm:block">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -107,18 +107,18 @@ const TopNav = ({ onToggleSidebar }) => {
             </motion.button>
           </div>
 
-          {/* Profile */}
+          {/* Profile - Responsive Design */}
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className={styles.glassCard}
+            className={`${styles.glassCard} hidden sm:block`}
           >
             <div className="flex items-center space-x-3 p-2 px-4">
-              <div>
-                <p className="text-sm font-medium text-white/80">
+              <div className="hidden md:block">
+                <p className="text-sm font-medium text-white/80 truncate">
                   Anna Katrina Marchesi
                 </p>
-                <p className="text-xs text-white/60">
+                <p className="text-xs text-white/60 truncate">
                   Head of Administrator
                 </p>
               </div>
@@ -127,6 +127,20 @@ const TopNav = ({ onToggleSidebar }) => {
               </div>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* Mobile Search - Show on small screens */}
+      <div className="md:hidden px-4 pb-3">
+        <div className="relative w-full">
+          <input
+            type="text"
+            placeholder="Search here..."
+            className={`${styles.glassInput} pl-12 w-full`}
+          />
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <MagnifyingGlassIcon className="w-5 h-5 text-white/40" />
+          </div>
         </div>
       </div>
     </header>
